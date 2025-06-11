@@ -24,7 +24,7 @@ public:
         head = nullptr;
         tail = nullptr;
     
-
+}
 
 
 
