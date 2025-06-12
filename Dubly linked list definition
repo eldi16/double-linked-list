@@ -1,1 +1,21 @@
-
+Doubly Linked List (DLL) is a linear data structure consisting of nodes, where each node contains:
+     ¡.Data: The value stored in the node (e.g., an integer)
+     ¡¡.Previous Pointer: A reference to the previous node in the sequence.
+      ¡¡¡.Next Pointer: A reference to the next node in the sequence.
+Unlike a Singly Linked List (which only links to the next node), a DLL allows bidirectional traversal (forward and backward).
+The list has:
+     a.A head pointer to the first node.
+     b.A tail pointer to the last node (optional, for efficiency).
+     c.An empty list has head = NULL.
+         Key Characteristics of DDL
+A.Dynamic Size: Nodes can be added or removed at runtime.
+B.Bidirectional Traversal: Access nodes in both directions using prev and next pointers.
+C.Memory Overhead: Requires extra memory for the prev pointer compared to a singly linked list.
+D.Applications: Used in scenarios requiring frequent insertions/deletions or backward traversal, 
+e.g., browser history, undo/redo functionality.
+     Operations on a Doubly Linked List
+1.Add a Node at the Front:Insert a new node as the first node (new head).
+step:i.Create a new node with the given data.
+     ¡¡.Set its next to the current head and prev to NULL.
+      ¡¡¡.Update head to the new node.
+       ¡¡¡¡.Update head to the new node.
