@@ -1,195 +1,26 @@
-
 #include <iostream>
-#include <memory>
+using namespastd;
 
-// Represents a node in the doubly linked list
-struct Node {
-    int value;
-    std::unique_ptr<Node> next;
-    Node* prev; // Raw pointer for prev, as next owns the forward link
-    explicit Node(int val) : value(val), next(nullptr), prev(nullptr) {}
+close Node{
+public:
+int data;
+    Node* prev;
+    Node* next;
+    
+    Node(int val) {
+        data = val;
+        prev = nullptr;
+        next = nullptr;
+    }
 };
 
 class DoublyLinkedList {
 private:
-    std::unique_ptr<Node> head;
+    Node* head;
     Node* tail;
-    size_t size;
-
-    // Helper to create a new node
-    static std::unique_ptr<Node> createNode(int value) {
-        return std::make_unique<Node>(value);
-    }
-
+    
 public:
-    DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {}
-
-    // Adds a node to the end of the list
-    void append(int value) {
-        auto newNode = createNode(value);
-
-        if (!head) {
-            head = std::move(newNode);
-            tail = head.get();
-        } else {
-            newNode->prev = tail;
-            tail->next = std::move(newNode);
-            tail = tail->next.get();
-        }
-        ++size;
+    DoublyLinkedList() {
+        head = nullptr;
+        tail = nullptr;
     }
-
-    // Inserts a node at the beginning
-    void insertAtFront(int value) {
-        auto newNode = createNode(value);
-
-        if (!head) {
-            head = std::move(newNode);
-            tail = head.get();
-        } else {
-            newNode->next = std::move(head);
-            head = std::move(newNode);
-            head->next->prev = head.get();
-        }
-        ++size;
-    }
-
-    // Inserts a node at the end
-    void insertAtEnd(int value) {
-        append(value); // Reuse append logic
-    }
-
-    // Inserts a node at a given position (1-based index)
-    void insertAtPosition(int value, int position) {
-        if (position < 1 || position > static_cast<int>(size) + 1) {
-            std::cout << "Please enter a valid position\n";
-            return;
-        }
-
-        if (position == 1) {
-            insertAtFront(value);
-        } else if (position == static_cast<int>(size) + 1) {
-            insertAtEnd(value);
-        } else {
-            auto newNode = createNode(value);
-            Node* current = head.get();
-            for (int i = 1; i < position - 1; ++i) {
-                current = current->next.get();
-            }
-            newNode->next = std::move(current->next);
-            newNode->prev = current;
-            current->next = std::move(newNode);
-            current->next->next->prev = current->next.get();
-            ++size;
-        }
-    }
-
-    // Deletes the first node
-    void deleteAtFront() {
-        if (!head) return;
-        head = std::move(head->next);
-        if (head) {
-            head->prev = nullptr;
-        } else {
-            tail = nullptr;
-        }
-        --size;
-    }
-
-    // Deletes the last node
-    void deleteAtEnd() {
-        if (!tail) return;
-        if (head.get() == tail) {
-            head.reset();
-            tail = nullptr;
-        } else {
-            Node* current = head.get();
-            while (current->next.get() != tail) {
-                current = current->next.get();
-            }
-            current->next.reset();
-            tail = current;
-        }
-        --size;
-    }
-
-    // Deletes a node at a given position (1-based index)
-    void deleteAtPosition(int position) {
-        if (position < 1 || position > static_cast<int>(size)) {
-            std::cout << "Please enter a valid position\n";
-            return;
-        }
-
-        if (position == 1) {
-            deleteAtFront();
-        } else if (position == static_cast<int>(size)) {
-            deleteAtEnd();
-        } else {
-            Node* current = head.get();
-            for (int i = 1; i < position; ++i) {
-                current = current->next.get();
-            }
-            current->prev->next = std::move(current->next);
-            current->prev->next->prev = current->prev;
-            --size;
-        }
-    }
-
-    // Prints the list
-    void display() const {
-        Node* current = head.get();
-        std::cout << "Linked List: ";
-        while (current) {
-            std::cout << current->value << " ";
-            current = current->next.get();
-        }
-        std::cout << "\n";
-    }
-};
-
-int main() {
-    DoublyLinkedList list;
-
-    // Adding nodes
-    list.append(2);
-    list.append(4);
-    list.append(9);
-    list.append(1);
-    list.append(21);
-    list.append(22);
-
-    // Display the list
-    list.display();
-
-    // Insert at the beginning
-    list.insertAtFront(1);
-    std::cout << "Linked List after inserting 1 at beginning: ";
-    list.display();
-
-    // Insert at the end
-    list.insertAtEnd(0);
-    std::cout << "Linked List after inserting 0 at end: ";
-    list.display();
-
-    // Insert at position 3
-    list.insertAtPosition(44, 3);
-    std::cout << "Linked List after inserting 44 after 3rd Node: ";
-    list.display();
-
-    // Delete at the beginning
-    list.deleteAtFront();
-    std::cout << "Linked List after deleting node at beginning: ";
-    list.display();
-
-    // Delete at the end
-    list.deleteAtEnd();
-    std::cout << "Linked List after deleting node at end: ";
-    list.display();
-
-    // Delete at position 5
-    std::cout << "Linked List after deleting node at position 5: ";
-    list.deleteAtPosition(5);
-    list.display();
-
-    return 0;
-}
