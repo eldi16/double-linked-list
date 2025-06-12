@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-class Node {
+struct Node {
 public:
     int data;
     Node* prev;
@@ -12,7 +12,7 @@ public:
     }
 };
 
-class DoublyLinkedList {
+struct DoublyLinkedList {
 private:
     Node* head;
     Node* tail;
@@ -22,13 +22,14 @@ public:
         head = nullptr;
         tail = nullptr;
     }
+};
 
 
 // Function to insert a node at a specific position in a doubly linked list
 void insertAtPosition(int pos, int val) {
     // Case 1: If position is less than or equal to 1, insert at the beginning
     if (pos <= 1) {
-        insertAtBeginning(val);
+      int insertAtBeginning(val);
         return;
     }
 
@@ -42,7 +43,7 @@ void insertAtPosition(int pos, int val) {
 
     // Case 2: If position is beyond the list length, insert at the end
     if (!temp || !temp->next) {
-        insertAtEnd(val);
+        int insertAtEnd(val);
         return;
     }
 
