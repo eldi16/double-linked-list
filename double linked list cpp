@@ -1,13 +1,11 @@
 #include <iostream>
 using namespace std;
-
 class Node {
 public:
     int data;
     Node* prev;
     Node* next;
-    
-    Node(int val) {
+     Node(int val) {
         data = val;
         prev = nullptr;
         next = nullptr;
@@ -23,10 +21,7 @@ public:
     DoublyLinkedList() {
         head = nullptr;
         tail = nullptr;
-    
-}
-
-
+    }
 
 
 // Function to insert a node at a specific position in a doubly linked list
