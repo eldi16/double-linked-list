@@ -74,5 +74,30 @@ public:
         else tail = nullptr;
         delete temp;
     }
+        }// Delete from end
+    void deleteFromEnd() {
+        if (!tail) return;
+        Node* temp = tail;
+        tail = tail->prev;
+        if (tail) tail->next = nullptr;
+        else head = nullptr;
+        delete temp;
+    }
+
+    // Delete from position (1-based index)
+    void deleteFromPosition(int pos) {
+        if (pos <= 1 || !head) {
+            deleteFromBeginning();
+            return;
+        }
+
+        Node* temp = head;
+        for (int i = 1; i < pos && temp; ++i) {
+            temp = temp->next;
+        }
+
+        if (!temp || !temp->prev) {
+            deleteFromEnd();
+            return;
         }
 
