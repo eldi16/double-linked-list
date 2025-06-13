@@ -58,5 +58,21 @@ public:
 
         if (!temp || !temp->next) {
             insertAtEnd(val);
-            return;
+            return;Node* newNode = new Node(val);
+        newNode->next = temp->next;
+        newNode->prev = temp;
+        temp->next->prev = newNode;
+        temp->next = newNode;
+    }
+
+    // Delete from beginning
+    void deleteFromBeginning() {
+        if (!head) return;
+        Node* temp = head;
+        head = head->next;
+        if (head) head->prev = nullptr;
+        else tail = nullptr;
+        delete temp;
+    }
         }
+
