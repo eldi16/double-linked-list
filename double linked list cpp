@@ -23,7 +23,7 @@ public:
     DoublyLinkedList() {
         head = nullptr;
         tail = nullptr;
-  
+  }
 // Insert at beginning
     void insertAtBeginning(int val) {
         Node* newNode = new Node(val);
