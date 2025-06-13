@@ -47,3 +47,34 @@ public:
             tail = newNode;
         }
     }
+// Function to insert a node at a specific position in a doubly linked list
+void insertAtPosition(int pos, int val) {
+    // Case 1: If position is less than or equal to 1, insert at the beginning
+    if (pos <= 1) {
+        insertAtBeginning(val);
+        return;
+    }
+
+    // Initialize a temporary pointer to traverse the list
+    Node* temp = head;
+
+    // Move temp to the node before the desired position (pos - 1)
+    for (int i = 1; i < pos - 1 && temp; ++i) {
+        temp = temp->next;
+    }
+
+    // Case 2: If position is beyond the list length, insert at the end
+    if (!temp || !temp->next) {
+        insertAtEnd(val);
+        return;
+    }
+
+    // Create a new node for the given value
+    Node* newNode = new Node(val);
+
+    // Adjust pointers for the new node
+    newNode->next = temp->next;  // Link new node to the next node
+    newNode->prev = temp;        // Link new node to the previous node
+    temp->next->prev = newNode;  // Update next node's previous pointer
+    temp->next = newNode;        // Update current node's next pointer
+}
