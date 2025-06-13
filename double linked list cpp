@@ -44,3 +44,19 @@ public:
             tail = newNode;
         }
     }
+// Insert at position (1-based index)
+    void insertAtPosition(int pos, int val) {
+        if (pos <= 1) {
+            insertAtBeginning(val);
+            return;
+        }
+
+        Node* temp = head;
+        for (int i = 1; i < pos - 1 && temp; ++i) {
+            temp = temp->next;
+        }
+
+        if (!temp || !temp->next) {
+            insertAtEnd(val);
+            return;
+        }
